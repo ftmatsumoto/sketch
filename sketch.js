@@ -18,15 +18,36 @@ $(document).ready(function(){
 		}
 	});
 
+	$("#random").on("click", function(){
+		newGrid();
+		if (cancel == false){
+			$(".grid").on("mouseenter", function(){
+				$(this).css("background", randomColor());
+			});
+		}
+	});
+
+	$("#opacity").on("click", function(){
+		newGrid();
+		if (cancel == false){
+			$(".grid").on("mouseenter", function(){
+				var opacity = $(this).css("opacity");
+				if (opacity > 0.1) {
+					$(this).css("opacity", opacity - 0.1);
+				} else {
+					$(this).css("opacity", 0);					
+				}
+			});
+		}
+	});
+
 	$("#clear").on("click", function(){
 		$(".grid").css({"background": "#171B99", "opacity": 1}).removeClass("colored");
-
 	});
 
 });
 
 function createGrid(n) {
-
 	var size = (500 - 2*n)/n;
 	var container = $("#container").html("");
 	for (var j = 0; j < n; j++) {
@@ -47,4 +68,11 @@ function newGrid() {
 	} else {
 		cancel = true;
 	}
+}
+
+function randomColor() {
+	var r = Math.floor(Math.random()*256);
+	var g = Math.floor(Math.random()*256);
+	var b = Math.floor(Math.random()*256);
+	return "rgb(" + r + "," + g + "," + b + ")"
 }
